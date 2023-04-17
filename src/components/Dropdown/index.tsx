@@ -24,7 +24,9 @@ import {
   View,
   ViewStyle,
   StatusBar,
+  Platform,
 } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import { useDetectDevice } from '../../toolkits';
 import { useDeviceOrientation } from '../../useDeviceOrientation';
 import CInput from '../TextInput';
@@ -584,7 +586,7 @@ const DropdownComponent: <T>(
           ) {
             extendHeight = keyboardHeight;
           }
-
+          const isTablet = DeviceInfo.isTablet();
           return (
             <Modal
               transparent
@@ -604,16 +606,17 @@ const DropdownComponent: <T>(
                 >
                   <View
                     style={StyleSheet.flatten([
-                      styles.flex1,
+                      // styles.flex1,
                       {
                         width,
                       },
-                      !isTopPosition
-                        ? { paddingTop: extendHeight }
-                        : {
-                            justifyContent: 'flex-end',
-                            paddingBottom: extendHeight,
-                          },
+                      // !isTopPosition
+                      //   ? { paddingTop: extendHeight }
+                      //   : {
+                      //       justifyContent: 'flex-end',
+                      //       paddingBottom: extendHeight,
+                      //     },
+                      {paddingTop: orientation === 'LANDSCAPE' ? '30%' : isTablet? '50%' : '70%'},
                       isFull && styles.fullScreen,
                     ])}
                   >
